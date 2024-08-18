@@ -42,14 +42,17 @@
         const gpioPins = [2, 4, 16, 17, 18, 19, 21, 22, 23, 25, 26, 27];
         const gpioControls = document.getElementById('gpio-controls');
 
-        // Create buttons for each GPIO pin
-        gpioPins.forEach(pin => {
-            const button = document.createElement('a');
-            button.className = 'btn';
-            button.href = '/toggle?pin=' + pin;
-            button.innerText = 'Toggle GPIO ' + pin;
-            gpioControls.appendChild(button);
-        });
+        // Load button states from local storage
+        window.onload = function() {
+            gpioPins.forEach(pin => {
+                const savedName = localStorage.getItem('gpio-' + pin);
+                const button = document.createElement('a');
+                button.className = 'btn';
+                button.href = '/toggle?pin=' + pin;
+                button.innerText = savedName ? savedName : 'Toggle GPIO ' + pin;
+                gpioControls.appendChild(button);
+            });
+        };
 
         // Function to rename button
         function renameButton() {
@@ -61,6 +64,7 @@
                 buttons.forEach(button => {
                     if (button.innerText.includes('Toggle GPIO ' + gpioNumber)) {
                         button.innerText = newName;
+                        localStorage.setItem('gpio-' + gpioNumber, newName);
                     }
                 });
             } else {
