@@ -1,1 +1,38 @@
-gi
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP32 Control Panel</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>ESP32 Control Panel</h1>
+
+    <div class="buttons">
+        <button class="on" onclick="togglePin(13, 'on')">Pin 13 ON</button>
+        <button class="off" onclick="togglePin(13, 'off')">Pin 13 OFF</button>
+        <button class="on" onclick="togglePin(14, 'on')">Pin 14 ON</button>
+        <button class="off" onclick="togglePin(14, 'off')">Pin 14 OFF</button>
+        <button class="on" onclick="togglePin(18, 'on')">Pin 18 ON</button>
+        <button class="off" onclick="togglePin(18, 'off')">Pin 18 OFF</button>
+        <button class="on" onclick="togglePin(21, 'on')">Pin 21 ON</button>
+        <button class="off" onclick="togglePin(21, 'off')">Pin 21 OFF</button>
+        <button class="on" onclick="togglePin(22, 'on')">Pin 22 ON</button>
+        <button class="off" onclick="togglePin(22, 'off')">Pin 22 OFF</button>
+        <button class="on" onclick="togglePin(23, 'on')">Pin 23 ON</button>
+        <button class="off" onclick="togglePin(23, 'off')">Pin 23 OFF</button>
+        <button class="on" onclick="togglePin(25, 'on')">Pin 25 ON</button>
+        <button class="off" onclick="togglePin(25, 'off')">Pin 25 OFF</button>
+        <button class="on" onclick="togglePin(19, 'on')">Pin 19 ON</button>
+        <button class="off" onclick="togglePin(19, 'off')">Pin 19 OFF</button>
+    </div>
+
+    <div class="all-buttons">
+        <button class="all-on" onclick="toggleAll('on')">All ON</button>
+        <button class="all-off" onclick="toggleAll('off')">All OFF</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

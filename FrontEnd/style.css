@@ -1,0 +1,47 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 50px;
+}
+
+h1 {
+    color: #333;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.all-buttons {
+    margin-top: 20px;
+}
+
+button {
+    padding: 15px 30px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.on {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.off {
+    background-color: #f44336;
+    color: white;
+}
+
+.all-on {
+    background-color: #008CBA;
+    color: white;
+}
+
+.all-off {
+    background-color: #e7e7e7;
+    color: black;
+}
