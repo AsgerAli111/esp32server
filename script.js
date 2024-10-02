@@ -1,4 +1,4 @@
-const ESP32_IP = 'http://<ESP32-IP-ADDRESS>';  // Replace with your ESP32 IP address
+const ESP32_IP = 'http://192.168.178.35';  // Replace with your ESP32 IP address
 
 function togglePin(pin, state) {
     const url = `${ESP32_IP}/pin/${pin}/${state}`;
