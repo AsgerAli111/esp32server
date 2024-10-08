@@ -1,38 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ESP32 Control Panel</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <h1>ESP32 Control Panel</h1>
+<html>
+  <head>
+    <title>ESP32 Web Server</title>
+  </head>
+  <body>
+    <h1>ESP32 Web Server</h1>
+    <p>Current LED state: <span id="ledState">UNKNOWN</span></p>
+    <p><a href="#" id="ledOnButton"><button>Turn LED ON</button></a></p>
+    <p><a href="#" id="ledOffButton"><button>Turn LED OFF</button></a></p>
 
-    <div class="buttons">
-        <button class="on" onclick="togglePin(13, 'on')">Pin 13 ON</button>
-        <button class="off" onclick="togglePin(13, 'off')">Pin 13 OFF</button>
-        <button class="on" onclick="togglePin(14, 'on')">Pin 14 ON</button>
-        <button class="off" onclick="togglePin(14, 'off')">Pin 14 OFF</button>
-        <button class="on" onclick="togglePin(18, 'on')">Pin 18 ON</button>
-        <button class="off" onclick="togglePin(18, 'off')">Pin 18 OFF</button>
-        <button class="on" onclick="togglePin(21, 'on')">Pin 21 ON</button>
-        <button class="off" onclick="togglePin(21, 'off')">Pin 21 OFF</button>
-        <button class="on" onclick="togglePin(22, 'on')">Pin 22 ON</button>
-        <button class="off" onclick="togglePin(22, 'off')">Pin 22 OFF</button>
-        <button class="on" onclick="togglePin(23, 'on')">Pin 23 ON</button>
-        <button class="off" onclick="togglePin(23, 'off')">Pin 23 OFF</button>
-        <button class="on" onclick="togglePin(25, 'on')">Pin 25 ON</button>
-        <button class="off" onclick="togglePin(25, 'off')">Pin 25 OFF</button>
-        <button class="on" onclick="togglePin(19, 'on')">Pin 19 ON</button>
-        <button class="off" onclick="togglePin(19, 'off')">Pin 19 OFF</button>
-    </div>
+    <script>
+      const esp32Ip = 'http://ESP32_IP_ADDRESS';  // Replace with your ESP32's IP address
 
-    <div class="all-buttons">
-        <button class="all-on" onclick="toggleAll('on')">All ON</button>
-        <button class="all-off" onclick="toggleAll('off')">All OFF</button>
-    </div>
+      // Fetch the current LED state from ESP32
+      function updateLEDState() {
+        fetch(`${esp32Ip}/LED/state`)
+          .then(response => response.text())
+          .then(state => {
+            document.getElementById('ledState').textContent = state;
+          })
+          .catch(err => console.log(err));
+      }
 
-    <script src="script.js"></script>
-</body>
+      // Turn LED ON
+      document.getElementById('ledOnButton').addEventListener('click', function(event) {
+        event.preventDefault();
+        fetch(`${esp32Ip}/LED/on`)
+          .then(() => updateLEDState())  // After turning on, update the state
+          .catch(err => console.log(err));
+      });
+
+      // Turn LED OFF
+      document.getElementById('ledOffButton').addEventListener('click', function(event) {
+        event.preventDefault();
+        fetch(`${esp32Ip}/LED/off`)
+          .then(() => updateLEDState())  // After turning off, update the state
+          .catch(err => console.log(err));
+      });
+
+      // Initial fetch of the LED state
+      updateLEDState();
+    </script>
+  </body>
 </html>
