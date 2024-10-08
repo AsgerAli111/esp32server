@@ -1,45 +1,36 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>ESP32 Web Server</title>
-  </head>
-  <body>
-    <h1>ESP32 Web Server</h1>
-    <p>Current LED state: <span id="ledState">UNKNOWN</span></p>
-    <p><a href="#" id="ledOnButton"><button>Turn LED ON</button></a></p>
-    <p><a href="#" id="ledOffButton"><button>Turn LED OFF</button></a></p>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP32 LED Control</title>
+</head>
+<body>
+    <h1>ESP32 LED Control</h1>
+    <button onclick="toggleLED('on')">Turn ON</button>
+    <button onclick="toggleLED('off')">Turn OFF</button>
+    <p>LED State: <span id="ledState">Unknown</span></p>
 
     <script>
-      const esp32Ip = 'http://ESP32_IP_ADDRESS';  // Replace with your ESP32's IP address
+        const esp32IP = 'http://192.168.1.17'; // Replace with your ESP32 IP address
 
-      // Fetch the current LED state from ESP32
-      function updateLEDState() {
-        fetch(`${esp32Ip}/LED/state`)
-          .then(response => response.text())
-          .then(state => {
-            document.getElementById('ledState').textContent = state;
-          })
-          .catch(err => console.log(err));
-      }
+        function toggleLED(state) {
+            fetch(`${esp32IP}/${state}`)
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data);
+                    document.getElementById('ledState').textContent = data;
+                })
+                .catch(error => console.error('Error:', error));
+        }
 
-      // Turn LED ON
-      document.getElementById('ledOnButton').addEventListener('click', function(event) {
-        event.preventDefault();
-        fetch(`${esp32Ip}/LED/on`)
-          .then(() => updateLEDState())  // After turning on, update the state
-          .catch(err => console.log(err));
-      });
-
-      // Turn LED OFF
-      document.getElementById('ledOffButton').addEventListener('click', function(event) {
-        event.preventDefault();
-        fetch(`${esp32Ip}/LED/off`)
-          .then(() => updateLEDState())  // After turning off, update the state
-          .catch(err => console.log(err));
-      });
-
-      // Initial fetch of the LED state
-      updateLEDState();
+        // Fetch the current LED state on page load
+        fetch(`${esp32IP}/state`)
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('ledState').textContent = data;
+            })
+            .catch(error => console.error('Error:', error));
     </script>
-  </body>
+</body>
 </html>
